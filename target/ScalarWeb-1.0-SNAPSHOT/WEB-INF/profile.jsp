@@ -54,15 +54,17 @@
                             if(ultimo < postAtual){
                                 $("#posts").prepend(html);
                             }
+                        }
                     }
-                }
-         });
-     }
+         }
+     });
+ }
 
 $(document).ready(function(){
     fetchdata(true);
     setInterval(fetchdata, 8000, false);  
 });
+     
      
 </script>
     <h1> ${sessionScope.user} </h1>
