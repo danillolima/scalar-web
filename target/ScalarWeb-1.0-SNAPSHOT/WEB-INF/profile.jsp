@@ -21,10 +21,53 @@
 </c:set>
 <t:layout title="${sessionScope.user} profile">
    
- <div class="profile">
+<div class="profile">
+<script>
+    function fetchdata(e){
+        $.ajax({
+            url: '/scalar/posts?feed=true',
+            type: 'GET',
+            success: function(response){
+                    var jsonData = JSON.parse(response);
+                    var html;
+                    for (var i = 0; i < jsonData.posts.length; i++) {
+                        var html = "";
+                        var post = jsonData.posts[i];
+                        
+                        html += '<div class="post">';   
+                        html += ' Postado  às:  <div class="timestamp">' + post.time + '</div>';   
+                        
+                        if(post.title !== 'null')
+                            html += "<h2>"  + post.title + "</h2>";
+                        if(post.content !== 'null')
+                            html += '<p>'+ post.content +'</p>'; 
+                        if(post.video !== 'null' )
+                            html += '<video controls src="' + post.video + '"/></video>';
+                        if(post.img !== 'null')
+                            html +=  '<img src="' + post.img + '"/></div>';
+                        if(e === true){ 
+                            $("#posts").append(html);
+                        }
+                        else{ 
+                            ultimo = new Date(document.getElementsByClassName("timestamp")[0].innerText);
+                            postAtual = new Date(post.time);
+                            if(ultimo < postAtual){
+                                $("#posts").prepend(html);
+                            }
+                    }
+                }
+         });
+     }
 
+$(document).ready(function(){
+    fetchdata(true);
+    setInterval(fetchdata, 8000, false);  
+});
+     
+</script>
     <h1> ${sessionScope.user} </h1>
-    ${postsContent}
+    <%-- ${postsContent} --%> 
+    <div id="posts"></div>
     </div>
 </t:layout>
 
