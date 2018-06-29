@@ -8,7 +8,7 @@
     
     <servlet>
              <servlet-name>cadastro</servlet-name>
-             <jsp-file>WEB-INF/cadastro.jsp</jsp-file>
+             <jsp-file>cadastro.jsp</jsp-file>
     </servlet>
       
     <servlet-mapping>
@@ -18,7 +18,7 @@
     
        <servlet>
              <servlet-name>login</servlet-name>
-             <jsp-file>WEB-INF/login.jsp</jsp-file>
+             <jsp-file>/WEB-INF/login.jsp</jsp-file>
     </servlet>
       
     <servlet-mapping>
