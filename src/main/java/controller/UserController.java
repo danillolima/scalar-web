@@ -38,11 +38,7 @@ public class UserController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            //out.println(getServletContext().getInitParameter("upload.location"));
-            
-        }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -71,7 +67,7 @@ public class UserController extends HttpServlet {
               indexUser = Post.getPosts(0, 10, profile.getId());
               request.setAttribute("user", profile);
               request.setAttribute("posts", indexUser);
-              request.getRequestDispatcher("WEB-INF/showProfile.jsp").forward(request, response);
+              request.getRequestDispatcher("/WEB-INF/showProfile.jsp").forward(request, response);
             }
         }
         
@@ -89,7 +85,10 @@ public class UserController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
       
-        
+       // response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        PrintWriter out = response.getWriter();
+        String json;
         
         if(request.getParameter("action").equals("save")){
            String msg = "";
@@ -130,7 +129,7 @@ public class UserController extends HttpServlet {
         }
         if(request.getParameter("action").equals("verify")){
         
-        PrintWriter out = response.getWriter();
+            
         String user = request.getParameter("user");
         String pass = request.getParameter("pass");
         PreparedStatement p;
@@ -147,18 +146,24 @@ public class UserController extends HttpServlet {
                 request.getSession().setAttribute("logado", true);
                 request.getSession().setAttribute("idUser", r.getString("idUser"));
                 request.getSession().setAttribute("user", r.getString("user"));
-                response.sendRedirect("/ScalarWeb/publicar");
+                json = "{ \"login\": \"authorized\" }";
+                out.println(json);
+                //  response.sendRedirect("/scalar/publicar");
             }
             else{
-                m = "Usuario ou senha estão incorretos.";
-                response.sendRedirect("/ScalarWeb/login");
+                json = "{ \"login\": \"not authorized\", "
+                     + "\"message\": \"Usuário ou senha errados\" }";
+                out.println(json);
+       
+               
+                //  response.sendRedirect("/scalar/login");
             }
             c.close();
         }catch(SQLException e){
            e.printStackTrace();
         }
         }      
-        processRequest(request, response);   
+        //processRequest(request, response);   
     }
 
     /**

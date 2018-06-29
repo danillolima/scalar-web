@@ -56,19 +56,46 @@ public class PostController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        PrintWriter out = response.getWriter();
          if(request.getParameter("s") != null){
             String busca = request.getParameter("s");
             ArrayList<Post> resultado;
             resultado = Post.buscaPosts(busca);
             request.setAttribute("posts", resultado);
             request.setAttribute("termo", busca);
-            request.getRequestDispatcher("WEB-INF/busca.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/busca.jsp").forward(request, response);
+        }
+        else if(request.getParameter("feed") != null){
+            ArrayList<Post> indexUser;
+            indexUser = Post.getPosts(0, 10, request.getSession().getAttribute("idUser").toString());
+            int i;
+            out.println("{ \"posts\":[ ");
+            for(i = 0; i+1 < indexUser.size(); i++){
+                out.println("{"
+                           + "  \"id\": \"" + indexUser.get(i).getId() + "\","
+                           + "  \"time\": \"" + indexUser.get(i).getHora() + "\","
+                           + "  \"title\": \"" + indexUser.get(i).getTitle() + "\","
+                           + "  \"content\": \"" + indexUser.get(i).getContent() + "\","
+                           + "  \"video\":   \"" + indexUser.get(i).getVideo() + "\","
+                           + "  \"img\":     \"" + indexUser.get(i).getImg() + "\""
+                           + "},");
+            }
+            out.println("{"
+                           + "  \"id\": \"" + indexUser.get(i).getId() + "\","
+                           + "  \"time\": \"" + indexUser.get(i).getHora() + "\","
+                           + "  \"title\": \"" + indexUser.get(i).getTitle() + "\","
+                           + "  \"content\": \"" + indexUser.get(i).getContent() + "\","
+                           + "  \"video\":   \"" + indexUser.get(i).getVideo() + "\","
+                           + "  \"img\":     \"" + indexUser.get(i).getImg() + "\""
+                           + "}");
+            out.println("]}");
         }
         else{
             ArrayList<Post> indexUser;
             indexUser = Post.getPosts(0, 10, request.getSession().getAttribute("idUser").toString());
             request.setAttribute("posts", indexUser);
-            request.getRequestDispatcher("WEB-INF/profile.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/profile.jsp").forward(request, response);
+            
         }
         processRequest(request, response);
     }

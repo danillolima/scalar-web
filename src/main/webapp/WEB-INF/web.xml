@@ -8,7 +8,7 @@
     
     <servlet>
              <servlet-name>cadastro</servlet-name>
-             <jsp-file>cadastro.jsp</jsp-file>
+             <jsp-file>/WEB-INF/cadastro.jsp</jsp-file>
     </servlet>
       
     <servlet-mapping>
@@ -28,7 +28,7 @@
     
       <servlet>
              <servlet-name>profile</servlet-name>
-             <jsp-file>WEB-INF/profile.jsp</jsp-file>
+             <jsp-file>/WEB-INF/profile.jsp</jsp-file>
     </servlet>
       
     <servlet-mapping>
@@ -39,7 +39,7 @@
     
     <servlet>
              <servlet-name>publicar</servlet-name>
-             <jsp-file>WEB-INF/publicar.jsp</jsp-file>
+             <jsp-file>/WEB-INF/publicar.jsp</jsp-file>
     </servlet>
       
     <servlet-mapping>

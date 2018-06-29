@@ -15,11 +15,11 @@ public class ConMySQL {
         try{
             String driverName = "com.mysql.jdbc.Driver";                        
             Class.forName(driverName);
-            String serverName = "localhost";    
+            String serverName = "35.239.136.207";    
             String mydatabase = "scalar";     
             String url = "jdbc:mysql://" + serverName + "/" + mydatabase;
             String username = "root";       
-            String password = "root";      
+            String password = "sYH1Hi1Tqp5W";      
             c = DriverManager.getConnection(url, username, password);
         }catch(SQLException e){
             e.printStackTrace();

@@ -4,7 +4,7 @@
 <t:layout title="Cadastro - Scalar">
  <div class="form-box">
             <h1>Cadastro</h1>
-            <form name="cadastro" action="/scalar/user?action=save" method="POST">
+            <form name="cadastro" action="/user?action=save" method="POST">
                 <ul>
                     ${message}
                     <c:remove var = "message"/>
