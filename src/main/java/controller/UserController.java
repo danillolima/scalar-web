@@ -147,11 +147,11 @@ public class UserController extends HttpServlet {
                 request.getSession().setAttribute("logado", true);
                 request.getSession().setAttribute("idUser", r.getString("idUser"));
                 request.getSession().setAttribute("user", r.getString("user"));
-                response.sendRedirect("/scalar/publicar");
+                response.sendRedirect("/ScalarWeb/publicar");
             }
             else{
                 m = "Usuario ou senha estão incorretos.";
-                response.sendRedirect("/scalar/login");
+                response.sendRedirect("/ScalarWeb/login");
             }
             c.close();
         }catch(SQLException e){
